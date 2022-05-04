@@ -36,7 +36,9 @@ jobs:
         run: msbuild GitHubLambda.sln /p:Configuration=Release
         
       - name :  Zip Bin folder
-        run: powershell Compress-7Zip "Release" -ArchiveFileName "SampleX86.zip" -Format Zip
+        uses: edgarrc/action-7z@v1
+        with:
+          args: 7z a -t7z -mx=9 build.7z ./build/
       - name: Deploy to AWS Lambda
         uses: appleboy/lambda-action@master
         with:
