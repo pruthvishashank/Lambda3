@@ -44,7 +44,8 @@ jobs:
        #commented above to try below.   
       - uses: papeloto/action-zip@v1
         with:
-          files: bin/Release/netcoreapp3.1/ GitHubLambda.deps.json
+          #files: bin/Release/netcoreapp3.1/ GitHubLambda.deps.json
+          files: netcoreapp3.1/ bin/Release/netcoreapp3.1/GitHubLambda.deps.json
           dest: abc.zip
           recursive: false
       - name: Publish Artifacts
