@@ -38,7 +38,6 @@ jobs:
       - name :  Zip Bin folder
         run : | 
           $compress = @{
-           LiteralPath= "FileTransferImporter.ps1", ".\bin"
            CompressionLevel = "Fastest"
            DestinationPath = "archive.zip"
            }
