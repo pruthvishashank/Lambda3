@@ -1,0 +1,51 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Deploy to AWS Lambda Function
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Check Out TestLambda Project
+        uses: actions/checkout@v3
+
+      # Runs a single command using the runners shell
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.0.2
+        
+      - name: Install Nuget
+        uses: nuget/setup-nuget@v1
+        with:
+          nuget-version: 5.3.x
+        
+      - name: Restore NuGet Packages
+        run: nuget restore GitHubLambda.sln
+        
+      - name: Build Solution
+        run: msbuild GitHubLambda.sln /p:Configuration=Release
+        
+      - name: zip
+        uses: TheDoctor0/zip-release@0.6.2
+        with:
+          filename: abc.zip
+      - name: Deploy to AWS Lambda
+        uses: kazimanzurrashid/aws-lambda-update-action@v1
+        with:
+          zip-file: abc.zip
+          lambda-name: LambdaPublish_GitHub
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1
