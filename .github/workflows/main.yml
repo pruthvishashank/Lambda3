@@ -44,8 +44,13 @@ jobs:
        #commented above to try below.   
       - uses: papeloto/action-zip@v1
         with:
-          files: bin\Debug\netcoreapp3.1/ GitHubLambda.deps.json
+          files: bin/Debug/netcoreapp3.1/ GitHubLambda.deps.json
           dest: abc.zip
+      - name: Publish Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: "abc.zip"
+          path: "./abc.zip"
       - name: Deploy to AWS Lambda
         uses: kazimanzurrashid/aws-lambda-update-action@v1
         with:
@@ -54,8 +59,4 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: us-east-1
-      - name: Publish Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: "abc.zip"
-          path: "./abc.zip"
+     
