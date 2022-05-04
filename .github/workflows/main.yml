@@ -14,7 +14,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -37,10 +37,10 @@ jobs:
       - name: Build Solution
         run: msbuild GitHubLambda.sln /p:Configuration=Release
         
-      - name :  Zip Bin folder
-        uses: edgarrc/action-7z@v1
+      - name: zip
+        uses: montudor/action-zip@v0.1.0
         with:
-          args: 7z a -t7z -mx=9 build.7z ./build/
+          args: zip -qq -r ./bundle.zip ./
       - name: Deploy to AWS Lambda
         uses: appleboy/lambda-action@master
         with:
