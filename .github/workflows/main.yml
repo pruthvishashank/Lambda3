@@ -37,10 +37,15 @@ jobs:
       - name: Build Solution
         run: msbuild GitHubLambda.sln /p:Configuration=Release
         
-      - name: zip
-        uses: TheDoctor0/zip-release@0.6.2
+     # - name: zip
+      #  uses: TheDoctor0/zip-release@0.6.2
+      #  with:
+      #    filename: abc.zip
+       #commented above to try below.   
+      - uses: papeloto/action-zip@v1
         with:
-          filename: abc.zip
+          files: bin\Debug\netcoreapp3.1/ GitHubLambda.deps.json
+          dest: abc.zip
       - name: Deploy to AWS Lambda
         uses: kazimanzurrashid/aws-lambda-update-action@v1
         with:
