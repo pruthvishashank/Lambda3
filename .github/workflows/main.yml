@@ -35,10 +35,14 @@ jobs:
       - name: Build Solution
         run: msbuild GitHubLambda.sln /p:Configuration=Release
         
-      - name: Zip into Folder
-        uses: montudor/action-zip@v0.1.0
-        with:
-          args: zip -qq -r ./bundle.zip ./
+      - name :  Zip Bin folder
+        run : | 
+          $compress = @{
+           LiteralPath= "FileTransferImporter.ps1", ".\bin"
+           CompressionLevel = "Fastest"
+           DestinationPath = "archive.zip"
+           }
+          Compress-Archive @compress
           
       - name: Deploy to AWS Lambda
         uses: appleboy/lambda-action@master
