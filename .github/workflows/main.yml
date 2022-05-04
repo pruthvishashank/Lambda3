@@ -30,10 +30,10 @@ jobs:
         uses: NuGet/setup-nuget@v1.0.5
         
       - name: Restore NuGet Packages
-        run: nuget restore TestLambda.sln
+        run: nuget restore GitHubLambda.sln
         
       - name: Build Solution
-        run: msbuild TestLambda.sln /p:Configuration=Release
+        run: msbuild GitHubLambda.sln /p:Configuration=Release
         
       - name: Zip into Folder
         uses: montudor/action-zip@v0.1.0
