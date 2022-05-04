@@ -37,4 +37,5 @@ jobs:
       - name: deploy
         run: |
           zip -j deploy.zip ./* 
-          aws lambda update-function-code --function-name=LambdaPublish_GitHub --zip-file=fileb://deploy.zip 
+          Compress-Archive -Path ".\deploy.zip\bin\Debug\netcoreapp3.1" -DestinationPath "abc.zip" -Force
+          aws lambda update-function-code --function-name=LambdaPublish_GitHub --zip-file=fileb://abc.zip 
