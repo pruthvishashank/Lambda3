@@ -47,7 +47,7 @@ jobs:
           files: bin/Release/netcoreapp3.1/ bin/Release/netcoreapp3.1/GitHubLambda.deps.json
           #files: netcoreapp3.1/ bin/Release/netcoreapp3.1/GitHubLambda.deps.json
           dest: abc.zip
-          recursive: false
+          recursive: true
       - name: Publish Artifacts
         uses: actions/upload-artifact@v2
         with:
