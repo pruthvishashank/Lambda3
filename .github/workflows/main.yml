@@ -36,13 +36,7 @@ jobs:
         run: msbuild GitHubLambda.sln /p:Configuration=Release
         
       - name :  Zip Bin folder
-        run : | 
-          $compress = @{
-           CompressionLevel = "Fastest"
-           DestinationPath = "archive.zip"
-           }
-          Compress-Archive @compress
-          
+        run: zip -r release.zip
       - name: Deploy to AWS Lambda
         uses: appleboy/lambda-action@master
         with:
