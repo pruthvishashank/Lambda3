@@ -21,7 +21,7 @@ namespace GitHubLambda
         /// <returns></returns>
         public void FunctionHandler(ILambdaContext context)
         {
-            context.Logger.Log(DateTime.UtcNow.AddHours(5).AddMinutes(30) + " :SETS IST Lambda triggered_Changed\n");
+            context.Logger.Log(DateTime.UtcNow.AddHours(5).AddMinutes(30) + " :SETS IST-APS Lambda triggered_Changed\n");
             LambdaLogger.Log(DateTime.Now + " :SETS Local Lambda triggered_Changed");
         }
     }
